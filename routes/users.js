@@ -38,8 +38,6 @@ router.post('/auth', function (req, res, next) {
                 throw err;
             }
 
-            console.log('req: ', user);
-
             return Promise.all([
                 user,
                 passwordUtil.comparePassword(req.body.password, user.password),
