@@ -1,21 +1,25 @@
-var bcrypt = require('bcrypt');
+'use strict';
+
+const bcrypt = require('bcrypt');
+
 
 exports.cryptPassword = cryptPassword;
 exports.comparePassword = comparePassword;
-    
-function cryptPassword(password, callback) {
-    var salt = bcrypt.genSaltSync();
 
-    bcrypt.hash(password, salt, function(err, hash) {
-      return callback(err, hash);
+function cryptPassword(password) {
+    return new Promise((resolve, reject) => {
+        bcrypt.hash(password, 10, (err, hash) => {
+            if (err) return reject(err);
+            resolve(hash);
+        });
     });
-};
+}
 
-
-function comparePassword(password, userPassword, callback) {
-   bcrypt.compare(password, userPassword, function(err, isPasswordMatch) {
-      if (err) 
-        return callback(err);
-      return callback(null, isPasswordMatch);
-   });
-};
+function comparePassword(password, userPassword) {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(password, userPassword, (err, isPasswordMatch) => {
+            if (err) return reject(err);
+            resolve(isPasswordMatch);
+        });
+    });
+}
