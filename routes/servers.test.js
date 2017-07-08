@@ -81,6 +81,29 @@ describe('Severs router', () => {
         });
     });
 
+    describe('POST /api/v1/servers/test', () => {
+        test('can test server connection', done => {
+            request(app)
+                .post('/api/v1/servers/test')
+                .type('json')
+                .send({
+                    name: 'MyServer',
+                    host: 'localhost',
+                    userName: 'abdullo',
+                    port: 22,
+                    password: 'mko',
+                })
+                .expect(200)
+                .end((err, resp) => {
+                    expect(err).toEqual(null);
+                    expect(resp.body.status).toEqual('success');
+                    expect(resp.body.data).toBeInstanceOf(Object);
+
+                    done();
+                });
+        }, 15000);
+    });
+
     describe('DELETE /api/v1/servers/:id', () => {
         test('can delete server by id', done => {
             request(app)
@@ -94,4 +117,6 @@ describe('Severs router', () => {
                 });
         });
     });
+
+    
 });

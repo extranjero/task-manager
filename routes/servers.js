@@ -2,6 +2,7 @@
 
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const Ssh = require('simple-ssh');
 
 const passwordUtil = require('../utils/password');
 const config = require('../utils/config');
@@ -49,6 +50,43 @@ router.post('/', function (req, res, next) {
     });
 
 });
+
+router.post('/test', function (req, res, next) {
+    let ssh = new Ssh({
+        host: req.body.host, 
+        user: req.body.userName, 
+        port: req.body.port, 
+        keyFile: req.body.keyFile, 
+        //TODO Should crypted 
+        pass: req.body.password, 
+
+    });
+
+    ssh.exec('echo "Hello world"', {
+        out: (stdout) => {
+            res.json({
+                status: 'success',
+                data: {
+                    status: "success",
+                    stdout: stdout, 
+                } 
+            });
+
+            ssh.end();
+        },
+        err: (stderr) => {
+            res.json({
+                status: "error",
+                data: {
+                    stderr: stderr,
+                } 
+            });
+
+            ssh.end();
+        }
+    }).start();
+});
+
 
 router.get('/:id', function (req, res, next) {
     Server 

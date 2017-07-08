@@ -15,6 +15,7 @@
     "mongoose": "^4.11.1",
     "morgan": "~1.8.1",
     "nconf": "^0.8.4",
+    "simple-ssh": "^0.9.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
