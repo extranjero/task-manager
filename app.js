@@ -8,15 +8,15 @@ const express = require('express'),
     app = express();
 
 // local application modules
-const index = require('./routes/index'),
-    users = require('./routes/users');
+const server_route = require('./routes/servers'),
+    user_route = require('./routes/users');
 
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
-app.use('/api/v1/', index);
-app.use('/api/v1/users', users);
+app.use('/api/v1/servers', server_route);
+app.use('/api/v1/users', user_route);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
