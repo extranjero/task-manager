@@ -78,7 +78,6 @@ router.post('/test', function (req, res, next) {
     }).start();
 });
 
-
 router.get('/:id', function (req, res, next) {
     Server 
         .findOne({
