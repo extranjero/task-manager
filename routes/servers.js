@@ -57,33 +57,24 @@ router.post('/test', function (req, res, next) {
         user: req.body.userName, 
         port: req.body.port, 
         keyFile: req.body.keyFile, 
-        //TODO Should crypted 
+        //TODO Should be crypted 
         pass: req.body.password, 
 
     });
 
     ssh.exec('echo "Hello world"', {
-        out: (stdout) => {
+        exit: (code, stdout, stderr) => {
             res.json({
                 status: 'success',
                 data: {
-                    status: "success",
+                    status: (code == 0) ? 'success': 'error',
                     stdout: stdout, 
+                    stderr: stderr, 
                 } 
             });
 
             ssh.end();
         },
-        err: (stderr) => {
-            res.json({
-                status: "error",
-                data: {
-                    stderr: stderr,
-                } 
-            });
-
-            ssh.end();
-        }
     }).start();
 });
 
