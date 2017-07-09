@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 module.exports = db.model('Command', new Schema({ 
     name: String, 
     command: String, 
-    serverId: Schema.types.ObjectId, 
+    serverId: Schema.Types.ObjectId, 
     exitCode: Number, 
     stdout: String, 
     stderr: String, 
