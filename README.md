@@ -12,6 +12,7 @@ Results will be stored in db for later statistics.
 - clone repo
 - run command ```npm install```
 - create config file config.json in the project root
+- create admin user node ./scripts/create_admin.js 
 
 ### Sample config.json
 ```

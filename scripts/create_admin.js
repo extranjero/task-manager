@@ -26,23 +26,22 @@ rl.question('Utility for creating admin user. !!! It will not check existance of
         if(answer === "") {
             throw Error(`Invalid email: ${answer}`);
         }
-        
-        password = answer;
 
-        passwordUtil.cryptPassword(password, (err, encryptedPassword) => {
-            var admin = new User({
-                email: email,
-                password: encryptedPassword,
-                isAdmin: true
-            });
+        let user = new User({
+            email: email,
+            password: answer,
+            isAdmin: true
+        });
 
-            admin.save().catch((err) => {
-                if (err) throw err;
+        passwordUtil.cryptPassword(user.password)
+            .then(encryptedPassword => {
+                user.password = encryptedPassword;
+
+                return user.save();
             })
-
-            rl.close();
-        })
-
+            .catch(err => {
+                throw err;
+            });
     });
 });
 
