@@ -49,8 +49,9 @@ Params with * is required
 Authenticate user with email and password
 
 Params: 
+
 | Field | Type | Where | Desc |
---- |---| ---
+| --- |---| --- | --- |
 | email* | string | body | user email |
 | password* | string | body | user password |
 
@@ -64,8 +65,9 @@ Get all users
 Create new server
 
 Params: 
+
 | Field | Type | Where | Desc |
---- |---| ---
+| --- |---| --- | --- |
 | name* | string | body | server name |
 | host* | string | body | ssh host|
 | userName* | string | body | ssh user name |
@@ -83,8 +85,9 @@ Get all servers
 Update the server
 
 Params: 
+
 | Field | Type | Where | Desc |
---- |---| ---
+| --- |---| --- | --- |
 | name* | string | body | server name |
 | host* | string | body | ssh host|
 | userName* | string | body | ssh user name |
@@ -101,8 +104,9 @@ DELETE the server
 Run commands on servers
 
 Params: 
+
 | Field | Type | Where | Desc |
---- |---| ---
+| --- |---| --- | --- |
 | name* | string | body | command name |
 | command* | string | body | command to run servers |
 | serverIds* | []string | body | ids of the server to run the command |
