@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node index.js",
-    "start": "jest --forceExit"
+    "test": "node ./node_modules/jest/bin/jest.js --forceExit"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
