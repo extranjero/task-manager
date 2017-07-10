@@ -3,6 +3,7 @@ const request = require('supertest');
 const User = require('../models/user');
 const app = require('../app');
 const passwordUtil = require('../utils/password');
+const config = require('../utils/config');
 
 describe('Severs router', () => {
     let server;
@@ -88,10 +89,10 @@ describe('Severs router', () => {
                 .type('json')
                 .send({
                     name: 'MyServer',
-                    host: 'localhost',
-                    userName: 'abdullo',
-                    port: 22,
-                    password: 'mko',
+                    host: config.get('ssh:host'),
+                    userName: config.get('ssh:user'),
+                    port: config.get('ssh:port'),
+                    password: config.get('ssh:password'),
                 })
                 .expect(200)
                 .end((err, resp) => {

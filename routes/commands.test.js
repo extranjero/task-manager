@@ -3,7 +3,7 @@ const request = require('supertest');
 const User = require('../models/user');
 const Server = require('../models/server');
 const app = require('../app');
-const passwordUtil = require('../utils/password');
+const config = require('../utils/config');
 
 describe('Severs router', () => {
     let server, command;
@@ -11,10 +11,10 @@ describe('Severs router', () => {
     beforeEach(() => {
         server = new Server({
             name: 'server_name', 
-            host: 'localhost', 
-            userName: 'abdullo', 
-            port: 22, 
-            password: 'mko', 
+            host: config.get('ssh:host'), 
+            userName: config.get('ssh:user'), 
+            port: config.get('ssh:port'), 
+            password: config.get('ssh:password'), 
         });
 
         return server.save();
