@@ -33,8 +33,6 @@ router.post('/', function (req, res, next) {
     }).then(svs => {
         servers = svs;
 
-        console.log('servers: ', servers);
-
         if(servers.length < 1) {
             let err = new Error('Any server found by given ids');
             err.statusCode = 400;
@@ -55,16 +53,14 @@ router.post('/', function (req, res, next) {
                 keyFile: server.keyFile, 
                 //TODO Should be crypted 
                 pass: server.password, 
-                command: 'echo "Hello world"'
+                command: req.body.command 
             }));
         }
 
         return Promise.all(promises);
     })
     .then(results => {
-        if(servers.length < 1) {
-            let promises = [];
-        }
+        let promises = [];
 
         for(let i=0; i < results.length; i++) {
             let result = results[i];
@@ -81,7 +77,7 @@ router.post('/', function (req, res, next) {
             }).save());
         }
 
-        return promises;
+        return Promise.all(promises);
     })
     .then(results => {
         res.json({

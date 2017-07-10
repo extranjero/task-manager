@@ -14,7 +14,7 @@ describe('Severs router', () => {
             host: 'localhost', 
             userName: 'abdullo', 
             port: 22, 
-            password: 'okm', 
+            password: 'mko', 
         });
 
         return server.save();
@@ -38,10 +38,9 @@ describe('Severs router', () => {
                 .end((err, resp) => {
                     expect(err).toEqual(null);
                     expect(resp.body.status).toEqual('success');
-                    expect(resp.body.data).toBeInstanceOf(Object);
-                    expect(resp.body.data.status).toEqual('success');
-
-                    console.log('resp: ', resp.body);
+                    expect(resp.body.data).toBeInstanceOf(Array);
+                    expect(resp.body.data.length).toBeGreaterThanOrEqual(1);
+                    expect(resp.body.data[0].exitCode).toEqual(0);
 
                     command = resp.body.data[0];
 
@@ -59,8 +58,7 @@ describe('Severs router', () => {
                     expect(err).toEqual(null);
                     expect(resp.body.status).toEqual('success');
                     expect(resp.body.data).toBeInstanceOf(Array);
-                    console.log('resp: ', resp.body);
-                    //expect(resp.body.data.length).toBeGreaterThanOrEqual(1);
+                    expect(resp.body.data.length).toBeGreaterThanOrEqual(1);
 
                     done();
                 });
@@ -85,11 +83,11 @@ describe('Severs router', () => {
     describe('DELETE /api/v1/commands/:id', () => {
         test('can delete command by id', done => {
             request(app)
-                .delete('/api/v1/command/' + server._id)
+                .delete('/api/v1/commands/' + command._id)
                 .expect(200)
                 .end((err, resp) => {
-                    //expect(err).toEqual(null);
-                    //expect(resp.body.status).toEqual('success');
+                    expect(err).toEqual(null);
+                    expect(resp.body.status).toEqual('success');
 
                     done();
                 });

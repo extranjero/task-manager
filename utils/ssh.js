@@ -9,11 +9,9 @@ function ssh(options) {
         //TODO should be used time zones
         let startTime = new Date();
 
-        console.log('start', options);
         ssh.exec(options.command, {
             exit: (code, stdout, stderr) => {
 
-                console.log('finished');
                 let endTime = new Date();
                 return resolve({
                     code: code,
